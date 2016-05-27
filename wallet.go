@@ -472,8 +472,8 @@ func (r FutureSendToAddressResult) Receive() (*wire.ShaHash, error) {
 // returned instance.
 //
 // See SendToAddress for the blocking version and more details.
-func (c *Client) SendToAddressAsync(addr string, amount btcutil.Amount) FutureSendToAddressResult {
-	cmd := btcjson.NewSendToAddressCmd(addr, amount.ToBTC(), nil, nil)
+func (c *Client) SendToAddressAsync(addr string, amount float64) FutureSendToAddressResult {
+	cmd := btcjson.NewSendToAddressCmd(addr, amount, nil, nil)
 	return c.sendCmd(cmd)
 }
 
@@ -485,7 +485,7 @@ func (c *Client) SendToAddressAsync(addr string, amount btcutil.Amount) FutureSe
 //
 // NOTE: This function requires to the wallet to be unlocked.  See the
 // WalletPassphrase function for more details.
-func (c *Client) SendToAddress(address string, amount btcutil.Amount) (*wire.ShaHash, error) {
+func (c *Client) SendToAddress(address string, amount float64) (*wire.ShaHash, error) {
 	return c.SendToAddressAsync(address, amount).Receive()
 }
 
